@@ -1,3 +1,3 @@
 <?php 
-$num = file_get_contents('hw3.txt');
-file_put_contents('hw3.txt', $num**2);
+$num = file_get_contents(__DIR__ . "/hw3.txt");
+file_put_contents(__DIR__ . "/hw3.txt", $num**2);
