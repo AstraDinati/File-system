@@ -1,0 +1,72 @@
+Деление верстки на элементы в PHP
+Вставка одного файла в другой часто используется для того, чтобы разделять файлы с версткой на части. Это нужно для того, чтобы убрать повторяющиеся части HTML страниц в отдельные файлы для удобства редактирования.
+
+Посмотрим на примере. Пусть у нас есть следующая страница:
+
+<html>
+	<head>
+		<title>page1</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		text 1
+	</body>
+</html>
+
+И еще одна:
+
+<html>
+	<head>
+		<title>page2</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		text 2
+	</body>
+</html>
+
+Как вы видите, в этих двух файла одинаковое содержимое блока head. Вынесем его в отдельный файл:
+
+<meta charset="utf-8">
+<link rel="stylesheet" href="styles.css">
+
+Подключим этот файл к каждой из нашей страниц:
+
+<html>
+	<head>
+		<title>page1</title>
+		<?php include 'elem/head.php'; ?>
+	</head>
+	<body>
+		text 1
+	</body>
+</html>
+
+Даны файлы со следующей версткой:
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>title</title>
+	</head>
+	<body>
+		<header>
+			header
+		</header>
+		<aside>
+			sidebar
+		</aside>
+		<main>
+			content
+		</main>
+		<header>
+			footer
+		</header>
+	</body>
+</html>
+
+Пусть верстка файлов отличается лишь тайтлами и контентом. Вынесите содержимое хедера, футера и сайдбара в отдельные подключаемые файлы.
+
+/hw1
