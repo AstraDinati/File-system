@@ -1,0 +1,60 @@
+Однократное подключение файлов в PHP
+
+Пусть у нас есть файл pow.php, в котором хранится набор функций:
+
+<?php
+	function square($num) {
+		return $num ** 2;
+	}
+	
+	function cube() {
+		return $num ** 3;
+	}
+?>
+Пусть мы используем функции файла pow.php в файле sum.php:
+
+<?php
+	require 'pow.php';
+	
+	function squareSum($arr) {
+		$res = 0;
+		
+		foreach ($arr as $elem) {
+			$res += square($elem);
+		}
+		
+		return $res;
+	}
+	
+	function cubeSum($arr) {
+		$res = 0;
+		
+		foreach ($arr as $elem) {
+			$res += cube($elem);
+		}
+		
+		return $res;
+	}
+?>
+Пусть в основном файле мы подключаем оба файла с функциями:
+
+<?php
+	require 'pow.php';
+	require 'sum.php';
+	
+	echo square(3) + squareSum([1, 2, 3]);
+?>
+Нас, однако, поджидает проблема. К файлу index.php файл pow.php будет подключен два раза: сам по себе и через файл pow.php.
+
+Это приведет к проблеме, так как у нас будут два набора функций с одинаковыми именами.
+
+Для решения проблемы следует подключать все файлы через оператор require_once - он будет подключать файл только один раз, игнорируя повторный подключения:
+
+<?php
+	require_once 'pow.php';
+	require_once 'sum.php';
+	
+	echo square(3) + squareSum([1, 2, 3]);
+?>
+
+*) Сделайте несколько файлов с полезными наборами функций. Подключите эти файлы друг к другу и к вашему основному файлу.
